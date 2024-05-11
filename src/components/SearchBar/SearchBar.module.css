@@ -1,0 +1,42 @@
+.container {
+  display: flex;
+  height: 60px;
+  width: 1280px;
+  background-color: aqua;
+  margin-left: auto;
+  margin-right: auto;
+  align-items: center;
+  border-radius: 10px;
+  position: relative;
+  justify-content: center;
+}
+
+.input {
+  width: 250px;
+  padding-left: 28px;
+  border-radius: 8px;
+}
+
+.btn {
+  height: 30px;
+  width: 80px;
+  text-align: center;
+  justify-content: center;
+  padding: 0px;
+  margin-left: 10px;
+  background-color: rgb(4, 169, 169);
+  border: none;
+  cursor: pointer;
+  line-height: 0;
+}
+
+.form {
+  justify-content: center;
+  display: flex;
+}
+
+.icon {
+  position: absolute;
+  margin-top: 8px;
+  margin-left: -345px;
+}
