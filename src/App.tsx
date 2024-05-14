@@ -3,38 +3,52 @@ import { Toaster } from "react-hot-toast";
 import "./App.css";
 import searchImages from "./components/api";
 import SearchBar from "./components/SearchBar/SearchBar";
-import Images from "./components/ImageGallery/ImageGallery";
+import ImagesGallery from "./components/ImageGallery/ImageGallery";
 import Loader from "./components/Loader/Loader";
 import MoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
 import ModalWindow from "./components/ImageModal/ImageModal";
 import Error from "./components/ErrorMessage/ErrorMessage";
 
-function App() {
-  const [images, setImages] = useState([]);
-  const [loader, setLoader] = useState(false);
-  const [error, setError] = useState(false);
-  const [page, setPage] = useState(1);
-  const [query, setQuery] = useState("");
-  const [showBtn, setShowBtn] = useState(false);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [imege, setImage] = useState(null);
-
-  const openModal = (image) => {
-    setModalIsOpen(true);
-    setImage(image);
+export type AppProps = {
+  id: number;
+  urls: {
+    small: string;
   };
 
-  const closeModal = () => {
+  alt_description: string;
+};
+
+function App() {
+  const [images, setImages] = useState<AppProps[]>([]);
+  const [loader, setLoader] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
+  const [page, setPage] = useState<number>(1);
+  const [query, setQuery] = useState<string>("");
+  const [showBtn, setShowBtn] = useState<boolean>(false);
+  const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
+  const [imege, setImage] = useState<AppProps | null>(null);
+
+  const openModal = (imageUrl: AppProps): void => {
+    setModalIsOpen(true);
+    setImage(imageUrl);
+  };
+
+  // const openModal = (imageUrl: string, image: ImagesGalleryModalProps): void => {
+  //   setModalIsOpen(true);
+  //   setImage(image);
+  // };
+
+  const closeModal = (): void => {
     setModalIsOpen(false);
   };
 
-  const searchImagesl = async (newQuery) => {
+  const searchImagesl = (newQuery: string): void => {
     setQuery(`${Date.now()}/${newQuery}`);
     setPage(1);
     setImages([]);
   };
 
-  const handleMore = () => {
+  const handleMore = (): void => {
     setPage(page + 1);
   };
 
@@ -42,7 +56,7 @@ function App() {
     if (!query) {
       return;
     }
-    const fetchData = async () => {
+    const fetchData = async (): Promise<void> => {
       try {
         setError(false);
         setLoader(true);
@@ -68,7 +82,7 @@ function App() {
         <SearchBar onSearch={searchImagesl} />
         {error && <Error />}
         {images.length > 0 && (
-          <Images images={images} onImageClick={openModal} />
+          <ImagesGallery images={images} onImageClick={openModal} />
         )}
         {loader && <Loader />}
         <Toaster position="top-right" />

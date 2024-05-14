@@ -1,7 +1,13 @@
+import { AppProps } from "../../App";
 import Image from "../ImageCard/ImageCard";
 import css from "./ImageGallery.module.css";
 
-const Images = ({ images, onImageClick }) => {
+interface ImagesGalleryProps {
+  images: AppProps[];
+  onImageClick: (image: AppProps) => void;
+}
+
+const ImagesGallery = ({ images, onImageClick }: ImagesGalleryProps) => {
   return (
     <ul className={css.list}>
       {images.map((image) => (
@@ -13,4 +19,4 @@ const Images = ({ images, onImageClick }) => {
   );
 };
 
-export default Images;
+export default ImagesGallery;

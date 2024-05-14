@@ -1,5 +1,6 @@
 import Modal from "react-modal";
 import css from "./ImageModal.module.css";
+import React, { FC } from "react";
 const customStyles = {
   content: {
     top: "400px",
@@ -11,7 +12,25 @@ const customStyles = {
   },
 };
 
-const ModalWindow = ({ image, modalIsOpen, closeModal }) => {
+interface ModalWindowProps {
+  image: {
+    urls: {
+      regular: string;
+    };
+    alt_description: string;
+    user: {
+      name: string;
+    };
+  };
+  modalIsOpen: boolean;
+  closeModal: () => void;
+}
+
+const ModalWindow: FC<ModalWindowProps> = ({
+  image,
+  modalIsOpen,
+  closeModal,
+}) => {
   Modal.setAppElement("#root");
   return (
     <div>
