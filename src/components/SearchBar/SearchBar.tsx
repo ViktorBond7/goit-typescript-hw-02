@@ -1,19 +1,32 @@
 import { toast } from "react-hot-toast";
 import css from "./SearchBar.module.css";
 import { FaSearch } from "react-icons/fa";
+import { FormEvent } from "react";
 
-const SearchBar = ({ onSearch }) => {
-  const handleSubmit = (e) => {
+interface SearchBarProps {
+  onSearch: (query: string) => void;
+}
+
+const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (e.target.elements.query.value.trim() === "") {
+    const form = e.currentTarget;
+    const queryInput = form.elements.namedItem(
+      "query"
+    ) as HTMLInputElement | null;
+
+    if (queryInput && queryInput.value.trim() === "") {
       toast.error("EMPTY STRING!");
       return;
     }
 
-    onSearch(e.target.elements.query.value);
-    e.target.reset();
+    if (queryInput) {
+      onSearch(queryInput.value);
+      form.reset();
+    }
   };
+
   return (
     <header className={css.container}>
       <form className={css.form} onSubmit={handleSubmit}>

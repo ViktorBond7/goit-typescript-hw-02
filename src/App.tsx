@@ -13,9 +13,13 @@ export type AppProps = {
   id: number;
   urls: {
     small: string;
+    regular: string;
   };
 
   alt_description: string;
+  user: {
+    name: string;
+  };
 };
 
 function App() {
@@ -29,17 +33,13 @@ function App() {
   const [imege, setImage] = useState<AppProps | null>(null);
 
   const openModal = (imageUrl: AppProps): void => {
-    setModalIsOpen(true);
     setImage(imageUrl);
+    setModalIsOpen(true);
   };
-
-  // const openModal = (imageUrl: string, image: ImagesGalleryModalProps): void => {
-  //   setModalIsOpen(true);
-  //   setImage(image);
-  // };
 
   const closeModal = (): void => {
     setModalIsOpen(false);
+    setImage(null);
   };
 
   const searchImagesl = (newQuery: string): void => {
@@ -88,11 +88,13 @@ function App() {
         <Toaster position="top-right" />
         {showBtn && !loader && <MoreBtn onClick={handleMore} />}
 
-        <ModalWindow
-          modalIsOpen={modalIsOpen}
-          closeModal={closeModal}
-          image={imege}
-        />
+        {imege && (
+          <ModalWindow
+            modalIsOpen={modalIsOpen}
+            closeModal={closeModal}
+            image={imege}
+          />
+        )}
       </div>
     </>
   );
