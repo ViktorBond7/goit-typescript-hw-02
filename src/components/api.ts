@@ -8,7 +8,14 @@ interface ApiProps {
   per_page: number;
 }
 
-const searchImages = async (query: string, page: number) => {
+interface searchImages {
+  respons: AppProps[];
+  totalPages: number;
+}
+const searchImages = async (
+  query: string,
+  page: number
+): Promise<searchImages> => {
   const client_id = "TArFxx_mLGUvT8o_R5TxUwRqiGV2Ie5D78Oz1_4z2mc";
   const BASE_URL = "https://api.unsplash.com/search/photos";
   const url = `${BASE_URL}`;
